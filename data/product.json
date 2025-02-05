@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Smartphone X",
+    "description": "Smartphone dengan layar AMOLED dan kamera 48MP",
+    "price": 5000000,
+    "CategoryId": 1,
+    "imageUrl": "https://www.rancahpost.com/wp-content/uploads/2019/11/Vivo-V17-Resmi-Diperkenalkan-dengan-Kamera-48MP-dan-Layar-Super-AMOLED.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Kaos Polos",
+    "description": "Kaos polos dengan bahan katun nyaman",
+    "price": 120000,
+    "CategoryId": 2,
+    "imageUrl": "https://id-test-11.slatic.net/p/7dd82e7c41d743334cf6af41d614fb7a.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Teh Hijau",
+    "description": "Teh hijau premium untuk relaksasi tubuh",
+    "price": 45000,
+    "CategoryId": 3,
+    "imageUrl": "https://akcdn.detik.net.id/visual/2019/07/06/48f91ae6-8612-4386-9c63-cbbc9c0eaa48_169.jpeg?w=750&q=90"
+  },
+  {
+    "id": 4,
+    "name": "Blender Kecil",
+    "description": "Blender mini untuk membuat smoothies",
+    "price": 200000,
+    "CategoryId": 4,
+    "imageUrl": "https://tse2.mm.bing.net/th?id=OIP.ABfey4DeKp-bJi3xDrFX8wAAAA&pid=Api&P=0&h=180"
+  },
+  {
+    "id": 5,
+    "name": "Lipstik Matte",
+    "description": "Lipstik matte dengan pilihan warna tahan lama",
+    "price": 120000,
+    "CategoryId": 5,
+    "imageUrl": "https://tse3.mm.bing.net/th?id=OIP.xGvATnK1anKIOofIqo6LEAHaHa&pid=Api&P=0&h=180"
+  },
+  {
+    "id": 6,
+    "name": "Buku Novel",
+    "description": "Novel fiksi dengan cerita menegangkan",
+    "price": 80000,
+    "CategoryId": 6,
+    "imageUrl": "https://tse2.mm.bing.net/th?id=OIP.86cBkisopT71vi-l4IHawQHaJ3&pid=Api&P=0&h=180"
+  },
+  {
+    "id": 7,
+    "name": "Jam Tangan",
+    "description": "Jam tangan mewah dengan desain elegan",
+    "price": 350000,
+    "CategoryId": 7,
+    "imageUrl": "https://tse2.mm.bing.net/th?id=OIP.bXnDHY2ZD_ZYI9LnqsoFWAHaHb&pid=Api&P=0&h=180"
+  },
+  {
+    "id": 8,
+    "name": "Mainan Edukatif",
+    "description": "Mainan edukatif untuk anak usia dini",
+    "price": 150000,
+    "CategoryId": 8,
+    "imageUrl": "https://tse1.mm.bing.net/th?id=OIP.o33_Q1DywuAfthhHNqp_wgHaHa&pid=Api&P=0&h=180"
+  }
+]
