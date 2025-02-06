@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+
+</head>
+<body style="background-color:#ffffff">
+<%- include('_navbar') %>
+    
+    <div class="container" style="padding-top: 10px;" >
+        <table class="table table-striped table-hover" >
+            <thead class="table-light" >
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">ImageUrl</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <%data.forEach((el)=> { %>
+                    <tr>
+                        <td>
+                            <%= el.id %>
+                        </td>
+                        </td>
+                        <td scope="row">
+                            <img src="<%= el.imageUrl %>" alt="Image" width="100">
+                        </td>
+                        <td>
+                            <%= el.name %>
+                        </td>
+                        <td>
+                            <%= el.description %>
+                        </td>
+                        <td>
+                            <%= el.price %>
+                        </td>
+                        <td>
+                            <div style="display: flex;gap: 10px;">
+                                <a type="button" class="btn btn-secondary"
+                                    href="#">Delete</a>
+                                <a type="button" class="btn btn-secondary"
+                                href="/sellers/products/<%= el.id %>/edit">Edit</a>
+                                <a type="button" class="btn btn-secondary"
+                                href="/sellers/products/<%= el.id %>">Detail</a>
+                        </div>
+                        </td>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+     </div>
+
+
+    <%- include('_script') %>
+</body>
+</html>
