@@ -1,6 +1,7 @@
 // models/user.js
 'use strict';
 const { Model } = require('sequelize');
+const bcrypt = require(`bcryptjs`)
 
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
@@ -8,61 +9,57 @@ module.exports = (sequelize, DataTypes) => {
             User.hasOne(models.Profile, { foreignKey: 'UserId' });
             User.hasMany(models.Order, { foreignKey: 'UserId' });
         }
+
+        static async getSellerProductStats(sellerId) {
+            try {
+                const sellerProducts = await sequelize.models.Product.findAll({
+                    where: { UserId: sellerId },
+                    include: { model: sequelize.models.Category }
+                });
+
+                const totalProducts = sellerProducts.length;
+                const totalCategories = new Set(sellerProducts.map(p => p.Category.id)).size;
+
+                return `Anda memiliki ${totalProducts} produk dan ${totalCategories} kategori.`;
+            } catch (error) {
+                return "Terjadi kesalahan dalam mengambil data produk."
+            }
+        }
     }
 
-    User.init({
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: {
-                msg: 'Username already exists' 
+    User.init(
+        {
+            username: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                unique: true,
             },
-            validate: {
-                notEmpty: {
-                    msg: 'Username is required'
-                },
-                len: {
-                    args: [3, 20], 
-                    msg: 'Username must be between 3 and 20 characters'
-                }
-            }
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: {
-                msg: 'Email already exists' 
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                unique: true,
             },
-            validate: {
-                isEmail: {
-                    msg: 'Invalid email format'
-                }
-            }
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            role: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                defaultValue: "Customer",
+            },
         },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isStrongPassword(value) {
-                    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(value)) {
-                        throw new Error('Password must contain at least one lowercase letter, one uppercase letter, and one number');
-                    }
+        {
+            sequelize,
+            modelName: "User",
+            hooks: {
+                beforeCreate: async (user) => {
+                    const salt = await bcrypt.genSalt(10);
+                    user.password = await bcrypt.hash(user.password, salt);
                 },
-                len: {
-                    args: [8, 255], 
-                    msg: 'Password must be between 8 and 255 characters'
-                }
-            }
-        },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            defaultValue: 'Customer'
+            },
         }
-    }, {
-        sequelize,
-        modelName: 'User'
-    });
+    );
 
     return User;
 };

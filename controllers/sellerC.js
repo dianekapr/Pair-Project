@@ -1,125 +1,118 @@
-const {Product,Category,User,Profile} = require ("../models/index")
+const { Product, Category, User, Profile } = require("../models/index")
+const bcrypt = require('bcryptjs');
+const {timeFormat} = require('../helpers/timeFormat')
 
-class Seller{
-
-    static async showListProduct (req, res){
+class Seller {
+    static async showListProduct(req, res) {
         try {
+            const sellerId = req.session.user.id;
+            const sellerNotification = await User.getSellerProductStats(sellerId);
+            const products = await Product.findAll({
+                where: { UserId: sellerId },
+                include: Category
+            });
 
-            let data = await Product.findAll()
-            res.render ('sellerHome', {data, title: 'sellerHome'})
-
+            res.render("sellerHome", {
+                products,
+                sellerNotification,
+                title: "Seller Dashboard",
+                timeFormat
+            });
         } catch (error) {
             console.log(error);
-            res.send (error)
+            res.send(error);
         }
     }
 
-    static async getRegister (req, res) {
+    static async getRegister(req, res) {
+        res.render('register', { role: 'seller' });
+    }
+
+    static async postRegister(req, res) {
         try {
-
-            let data = await User.findAll()
-            res.send (data)
-            // res.render ('addRegisterPost', {data, title: 'addRegisterPost'})
-
+            const { username, email, password } = req.body;
+            await User.create({ username, email, password, role: 'Seller' });
+            res.redirect('/sellers/login');
         } catch (error) {
-            res.send(error)
+            res.send(error);
         }
     }
 
-    static async postRegister (req, res) {
+    static async getLogin(req, res) {
+        res.render('login', { role: 'seller', error: req.query.error });
+    }
+
+    static async postLogin(req, res) {
         try {
+            console.log(req.body); // Debugging: Check if req.body contains email & password
 
-            let {
-                username,
-                email,
-                password
-            } = req.body
+            const { email, password } = req.body;
+            if (!email || !password) {
+                return res.redirect('/sellers/login?error=Email and Password required');
+            }
 
-            await User.create({
-                username,
-                email,
-                password
-            })
+            const user = await User.findOne({ where: { email, role: "Seller" } });
 
-            res.redirect('/sellers/register')
+            if (!user || !(await bcrypt.compare(password, user.password))) {
+                return res.redirect("/sellers/login?error=Invalid Email or Password");
+            }
 
+            req.session.user = { id: user.id, username: user.username, role: user.role };
+            res.redirect("/sellers");
         } catch (error) {
-            res.send(error)
+            res.send(error);
         }
     }
 
-    static async getSellersLogin (req, res){
+    static async showLobby(req, res) {
         try {
-
-            let data = await User.findAll()
-            res.send (data)
-            // res.render ('addSellersPost', {data, title: 'addSellersPost'})
-
+            res.render("lobby", { title: "Lobby" });
         } catch (error) {
-            res.send(error)
+            res.send(error);
         }
     }
 
-    static async postSellersLogin (req, res){
+    static async getDetailProduct(req, res) {
         try {
-
-            let {
-                email,
-                password
-            } = req.body
-
-            await User.create({
-
-                email,
-                password
-            })
-
-            res.redirect('/sellers/register')
-
-        } catch (error) {
-            res.send(error)
-        }
-    }
-
-    static async getDetailProduct (req, res){
-        try {
-            let {id} = req.params
+            let { id } = req.params
             let data = await Product.findOne({
-                where: {id : id}
+                where: { id: id }
             })
             // res.send(data)
 
             res.render(
                 'detailSellersProduct', {
-                    data,
-                    title : 'detailSellersProduct'
-            })  
+                data,
+                title: 'detailSellersProduct'
+            })
         } catch (error) {
             console.log(error);
-            res.send (error)
+            res.send(error)
         }
     }
 
-    static async addProduct (req, res){
+    static async addProduct(req, res) {
         try {
 
-            let data = await Product.findAll()
-            res.render ('addProduct', {data, title: 'addProduct'})
+            let data = await Product.findAll({
+                include: Category
+            })
+            res.render('addProduct', { data, title: 'addProduct' })
 
         } catch (error) {
             res.send(error)
         }
     }
 
-    static async postProduct (req, res){
+    static async postProduct(req, res) {
         try {
             console.log(req.body);
-
             let {
                 name,
                 description,
                 price,
-                imageUrl
+                imageUrl,
+                CategoryId
             } = req.body
 
             await Product.create({
@@ -127,7 +120,52 @@ class Seller{
                 name,
                 description,
                 price,
+                imageUrl,
+                CategoryId
+            })
+
+            res.redirect('/sellers')
+
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async getProductEdit(req, res) {
+        try {
+            let { CategoryId } = req.params
+            let { id } = req.params
+            let data = await Product.findOne({ where: { id } })
+            let Category = await Category.findOne({ where: { id: CategoryId } })
+
+            res.render('editProduct', { data, title: 'editProduct' })
+
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async postProductEdit(req, res) {
+        try {
+            let { CategoryId } = req.params
+            let { id } = req.params
+            let {
+                name,
+                description,
+                price,
                 imageUrl
+            } = req.body
+
+            await data.update({
+                name,
+                description,
+                price,
+                imageUrl,
+                CategoryId: CategoryId
+            }, {
+                where: {
+                    id: id
+                }
             })
 
             res.redirect('/sellers')
@@ -138,41 +176,13 @@ class Seller{
         }
     }
 
-    static async getProductEdit (req, res){
+    static async deleting(req, res) {
         try {
-            let {id}= req.params
+            let { id } = req.params
             let data = await Product.findOne({
-                where: {id}
+                where: { id }
             })
-
-            res.render ('editProduct', {data, title: 'editProduct'})
-
-        } catch (error) {
-            res.send(error)
-        }
-    }
-
-    static async postProductEdit (req, res){
-        try {
-
-            let {
-                name,
-                description,
-                price,
-                imageUrl
-            } = req.body
-            let {id} =req.params
-            let data = await Product.findOne({
-                where: {id}
-            })
-
-            await data.update({
-                name,
-                description,
-                price,
-                imageUrl
-            })
-
+            await data.destroy()
             res.redirect('/sellers')
 
         } catch (error) {
