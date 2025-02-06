@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a style="margin-right: 100px;" class="navbar-brand" href="#"><strong>ECommerce</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item  btn-secondary" style="margin-right: 50px; background-color: white;">
+                        <a class="btn btn-secondary active" aria-current="page" href="/sellers">SallersHome</a>
+                    </li>
+    </nav>
+
+    <div
+      class="container mt-4"
+      style="
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      "
+    >
+      <h1
+        class="mb-4"
+        style="font-size: 1.5rem; text-align: center; margin-bottom: 20px"
+      >
+         <strong> Add New Product </strong>
+      </h1>
+      <form method="post" action="/sellers/addProduct">
+        <div class="mb-3" style="margin-bottom: 15px">
+          <label
+            for="Title"
+            class="form-label"
+            style="font-weight: bold; font-size: 1rem"
+            >Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              font-size: 1rem;
+            "
+          />
+        </div>
+
+        <div class="mb-3" style="margin-bottom: 15px">
+          <label
+            for="price"
+            class="form-label"
+            style="font-weight: bold; font-size: 1rem"
+            >Price</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            name="price"
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              font-size: 1rem;
+            "
+          />
+        </div>
+
+        <div class="mb-3" style="margin-bottom: 15px">
+          <label
+            for="imageUrl"
+            class="form-label"
+            style="font-weight: bold; font-size: 1rem"
+            >Image URL</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="imageUrl"
+            name="imageUrl"
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              font-size: 1rem;
+            "
+          />
+
+        <div class="mb-3" style="margin-bottom: 15px">
+          <label
+            for="description"
+            class="form-label"
+            style="font-weight: bold; font-size: 1rem"
+            >Description</label
+          >
+          <textarea
+            class="form-control"
+            id="description"
+            name="description"
+            rows="4"
+            placeholder="Enter the description here..."
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              font-size: 1rem;
+            "
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-secondary"
+          style="
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+          "
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <%- include('_script') %>
+  </body>
+</html>
