@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Sopi</title>
+    <title>Login</title>
     <style>
         body {
             font-family: 'Jersey M54', sans-serif;
@@ -50,6 +50,7 @@
             text-decoration: underline;
         }
 
+        /* Form Container */
         .form-container {
             max-width: 400px;
             width: 100%;
@@ -108,6 +109,21 @@
             background-color: #0056b3;
         }
 
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 480px) {
             .form-container {
                 padding: 15px;
@@ -127,44 +143,32 @@
                 font-size: 14px;
             }
         }
-
-        .error-message {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
-        }
     </style>
 </head>
 <body>
     <%- include('navbar') %>
 
     <div class="form-container">
-      <h2>Register</h2>
-      <form action="/register" method="POST">
-        <div class="form-group">
-          <label for="username">Username:</label>
-          <input type="text" id="username" name="username" value="<%= username || '' %>">
-          <% if (errors && errors.username) { %>
-            <div class="error-message"><%= errors.username %></div> 
-          <% } %>
+        <h2><%= role === 'seller' ? 'Login as Seller' : 'Login as Customer' %></h2>
+        <% if (error) { %>
+            <p class="error-message"><%= error %></p>
+        <% } %>
+        <form action="<%= role === 'seller' ? '/sellers/login' : '/login' %>" method="POST">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+        <div class="register-link">
+            <p>Don't have an account? 
+                <a href="<%= role === 'seller' ? '/sellers/register' : '/register' %>">Register here</a>
+            </p>
         </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" value="<%= email || '' %>">
-          <% if (errors && errors.email) { %>
-            <div class="error-message"><%= errors.email %></div> 
-          <% } %>
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" id="password" name="password" value="<%= password || '' %>"> 
-          <% if (errors && errors.password) { %>
-            <div class="error-message"><%= errors.password %></div> 
-          <% } %>
-        </div>
-        <button type="submit" class="submit-btn">Register</button>
-      </form>
     </div>
-
 </body>
 </html>

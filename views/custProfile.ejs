@@ -180,23 +180,157 @@ body {
 .show-more-btn:hover {
     background-color: #218838;
 }
+.profile-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .profile-container h2 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .profile-container p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #218838;
+        }
+        .profile-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-container img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .profile-container h2 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .profile-container p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #218838;
+        }
+
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 <body>
     <%- include('navbar') %>
-    <div class="profile">
-        <h2><%= user.username %></h2>
-        <p><%= user.email %></p>
-        <% if (profile) { %>
-            <p><%= profile.name %></p>
-            <p><%= profile.gender %></p>
-            <p><%= profile.bio %></p>
+
+    <div class="profile-container">
+        <% if (profile.profilePicture) { %>
             <img src="<%= profile.profilePicture %>" alt="Profile Picture">
-            <p><%= profile.phoneNumber %></p>
-            <p><%= profile.bornDate %></p>
-            <a href="/profile/edit">Edit Profile</a>
         <% } else { %>
-            <a href="/profile/add">Add Profile</a>
+            <img src="/default-avatar.png" alt="Default Profile Picture">
+        <% } %>
+        
+        <% if (!profile) { %>
+            <h2><%= user.username %></h2>
+            <p><%= user.email %></p>
+            <a href="/profile/add" class="btn btn-primary">Add Profile</a>
+        <% } else { %>
+            <h2><%= profile.name %></h2>
+            <p><strong>Gender:</strong> <%= profile.gender === 'L' ? 'Male' : 'Female' %></p>
+            <p><strong>Bio:</strong> <%= profile.bio %></p>
+            <p><strong>Phone:</strong> <%= profile.phoneNumber %></p>
+            <p><strong>Born Date:</strong> <%= profile.bornDate.toISOString().split('T')[0] %></p>
+
+            <a href="/profile/edit" class="btn btn-secondary">Edit Profile</a>
+            <form action="/logout" method="POST">
+                <button type="submit" class="btn btn-logout">Logout</button>
+            </form>
         <% } %>
     </div>
 </body>

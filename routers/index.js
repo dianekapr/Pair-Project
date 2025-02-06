@@ -1,11 +1,29 @@
-const express = require('express')
-const router = express.Router()
-const custController = require('../controllers/custC')
-const sellerController = require('../controllers/sellerC')
-const seller = require('./seller')
-const cust = require('./cust')
+const express = require('express');
+const router = express.Router();
+const seller = require('./seller');
+const cust = require('./cust');
+const Seller = require('../controllers/sellerC');
 
-router.use('/', cust)
-router.use('/', seller)
+router.use('/', cust);
+router.use('/sellers', seller);
 
-module.exports = router
+router.get('/register', Seller.getRegister);
+router.post('/register', Seller.postRegister);
+router.get('/login', Seller.getLogin);
+router.post('/login', Seller.postLogin);
+router.get('/role-selection', (req, res) => {
+    res.render('role-selection');
+});
+
+
+router.use((req, res, next) => {
+    if (!req.session.user) {
+        res.redirect('/login?error=Please login first!');
+    } else {
+        next();
+    }
+});
+
+router.get('/lobby', Seller.showLobby);
+
+module.exports = router;

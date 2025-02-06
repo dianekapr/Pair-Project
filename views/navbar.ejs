@@ -7,7 +7,27 @@
     </form>
 
     <div class="nav-buttons">
-        <button class="sign-in" onclick="window.location.href='/login'">Sign In</button>
-        <button class="register" onclick="window.location.href='/register'">Register</button>
+        <% if (session.user) { %>
+            <a href="<%= session.user.role === 'Seller' ? '/sellers/profile' : '/profile' %>" class="profile-link">
+                <% if (session.user.profilePicture) { %>
+                    <img src="<%= session.user.profilePicture %>" alt="Profile Picture" class="profile-nav-img">
+                <% } else { %>
+                    <img src="/default-avatar.png" alt="Default Profile Picture" class="profile-nav-img">
+                <% } %>
+            </a>
+        <% } else { %>
+            <button class="sign-in" onclick="window.location.href='/role-selection'">Sign In</button>
+            <button class="register" onclick="window.location.href='/role-selection'">Register</button>
+        <% } %>
     </div>
 </div>
+
+<style>
+    .profile-nav-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+    }
+</style>
