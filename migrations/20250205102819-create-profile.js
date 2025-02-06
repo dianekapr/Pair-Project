@@ -22,10 +22,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       phoneNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       bornDate: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DATE
       },
       UserId: {
         type: Sequelize.INTEGER,

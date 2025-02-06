@@ -5,10 +5,7 @@ const sellerController = require('../controllers/sellerC')
 const seller = require('./seller')
 const cust = require('./cust')
 
-router.get('/')
-router.use('', cust)
-
-router.get('/seller') //homepage seller
-router.use('/seller', seller)
+router.use('/', cust)
+router.use('/', seller)
 
 module.exports = router

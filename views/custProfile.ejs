@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        /* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: midnightblue;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.navbar .the-incubator {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar a {
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+/* Banner Styles */
+.banner img {
+    width: 100%;
+    height: auto;
+}
+
+/* Category Section */
+.categories {
+    padding: 20px;
+    text-align: center;
+}
+
+.category-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.category-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Product Section */
+.products {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.product-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-card h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.product-card p {
+    font-size: 16px;
+    color: #007bff;
+}
+
+/* Form Container */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Show More Button */
+.show-more-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.show-more-btn:hover {
+    background-color: #218838;
+}
+    </style>
+</head>
+<body>
+    <%- include('navbar') %>
+    <div class="profile">
+        <h2><%= user.username %></h2>
+        <p><%= user.email %></p>
+        <% if (profile) { %>
+            <p><%= profile.name %></p>
+            <p><%= profile.gender %></p>
+            <p><%= profile.bio %></p>
+            <img src="<%= profile.profilePicture %>" alt="Profile Picture">
+            <p><%= profile.phoneNumber %></p>
+            <p><%= profile.bornDate %></p>
+            <a href="/profile/edit">Edit Profile</a>
+        <% } else { %>
+            <a href="/profile/add">Add Profile</a>
+        <% } %>
+    </div>
+</body>
+</html>

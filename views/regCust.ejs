@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Sopi</title>
+    <style>
+        body {
+            font-family: 'Jersey M54', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: midnightblue;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar .sopi {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar a {
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 80px; 
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 15px;
+            }
+
+            .form-container h2 {
+                font-size: 20px;
+            }
+
+            .form-group input {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .submit-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('navbar') %>
+
+    <div class="form-container">
+      <h2>Register</h2>
+      <form action="/register" method="POST">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" value="<%= username || '' %>">
+          <% if (errors && errors.username) { %>
+            <div class="error-message"><%= errors.username %></div> 
+          <% } %>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="<%= email || '' %>">
+          <% if (errors && errors.email) { %>
+            <div class="error-message"><%= errors.email %></div> 
+          <% } %>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" value="<%= password || '' %>"> 
+          <% if (errors && errors.password) { %>
+            <div class="error-message"><%= errors.password %></div> 
+          <% } %>
+        </div>
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
+    </div>
+
+</body>
+</html>

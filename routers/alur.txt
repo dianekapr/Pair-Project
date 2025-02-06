@@ -1,6 +1,5 @@
 get / = homepage (ada tombol sign in)
 
-
 di register dan login ada pilihan "mau login as seller atau buyer"
 get /register = daftar akun
 get&post /seller/register = ni utk regis seller
@@ -14,7 +13,7 @@ logout session // atau ini gausa ada gpp
 get /seller/logout
 get /logout
 
-setting profile
+setting profile ()           
 get /seller/profile
 get & post /seller/profile/setting
 
