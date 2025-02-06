@@ -3,23 +3,6 @@ const Controller = require('../controllers/controller');
 const Seller = require('../controllers/sellerC');
 const seller = express.Router();
 
-seller.get('/register')
-seller.post('/register')
-seller.get('/login')
-seller.post('/login')
-seller.get('/logout')
-seller.get('/profile')
-seller.get('/profile/setting')
-seller.post('/profile/setting')
-
-seller.get('/products')
-seller.get('/products/:ProductId')
-seller.get('/addProduct')
-seller.post('/addProduct')
-seller.get('/products/:ProductId/edit')
-seller.get('/products/:ProductId/edit')
-seller.get('/categories')
-
 seller.get('/register',Seller.getRegister)
 seller.post('/register', Seller.postRegister)
 
