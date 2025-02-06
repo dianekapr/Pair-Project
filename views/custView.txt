@@ -1,0 +1,9 @@
+di homepage ada navbar (logo dan profile/login), banner, cuplikan 5 kategori + see more, cuplikan 5 products
+
+di categories ada list categoriesnya dlm bentuk button aja kek di shopee dah anying
+
+orders page ada barang yg udh di add ke cart 
+
+login pake email dan pw
+registrasi pake table user
+

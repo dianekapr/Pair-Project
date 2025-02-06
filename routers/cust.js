@@ -1,18 +1,21 @@
 const express = require('express');
-const Controller = require('../controllers/controller');
+const Customer = require('../controllers/custC');
 const cust = express.Router();
 
-cust.get('/register')
-cust.post('/register')
-cust.get('/login')
-cust.post('/login')
-cust.get('/logout')
-cust.get('/profile')
-cust.get('/profile/setting')
+cust.get('/', Customer.homePage)
+cust.get('/register', Customer.showRegister)
+cust.post('/register', Customer.postRegister)
+cust.get('/login', Customer.showLogin)
+cust.post('/login', Customer.postLogin)
+cust.get('/profile', Customer.profilePage)
+cust.get('/profile/add', Customer.showAddProfile)
+cust.post('/profile/add', Customer.postAddProfile)
+cust.get('/profile/edit', Customer.showEditProfile)
+cust.post('/profile/edit', Customer.postEditProfile)
 
-cust.get('/products')
-cust.get('/products/:ProductId')
-cust.get('/categories')
-cust.get('/orders')
+cust.get('/products', Customer.showProduct)
+cust.get('/products/:id', Customer.productDetail)
+cust.get('/categories', Customer.categoryList)
+cust.get('/orders', Customer.orders)
 
 module.exports = cust;

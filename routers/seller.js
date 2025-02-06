@@ -1,12 +1,11 @@
 const express = require('express');
-const Controller = require('../controllers/controller');
+const Controller = require('../controllers/custC');
 const seller = express.Router();
 
 seller.get('/register')
 seller.post('/register')
 seller.get('/login')
 seller.post('/login')
-seller.get('/logout')
 seller.get('/profile')
 seller.get('/profile/setting')
 seller.post('/profile/setting')
