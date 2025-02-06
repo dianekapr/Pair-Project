@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+
+  <body>
+    <%- include('_navbar') %>
+
+    <div class="container my-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card mb-3 shadow-lg">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img
+                  src="<%= data.imageUrl%>"
+                  class="img-fluid rounded-start"
+                  alt="..."
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%= data.name %></h5>
+                  <p class="card-text">
+                    <strong>Price:</strong> <%= data.price %>
+                  </p>
+                  <a href="/sellers" class="btn btn-primary">Back</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <p class="card-text"><%= data.description %></p>
+        </div>
+      </div>
+    </div>
+
+    <%- include('_script') %>
+  </body>
+</html>
