@@ -1,11 +1,11 @@
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
-const { User, Profile } = require("./models"); // Import Profile
+const { User, Profile } = require("./models"); 
 const router = require("./routers/index");
 
 const app = express();
-const port = 3300;
+const port = 3100;
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -20,7 +20,7 @@ app.use(session({
 app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.set("view engine", "ejs");
-app.set("views", "./views"); // Ensure views folder is correctly set
+app.set("views", "./views"); 
 
 
 // Make session data available in views

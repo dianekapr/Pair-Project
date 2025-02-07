@@ -6,7 +6,7 @@ seller.get('/register',Seller.getRegister)
 seller.post('/register', Seller.postRegister)
 
 seller.get('/login', Seller.getLogin)
-seller.post('/login', Seller.postLogin)
+seller.post('/login', Seller.PostLogin)
 
 seller.get('/',Seller.showListProduct)
 seller.get('/products/:id', Seller.getDetailProduct)

@@ -6,10 +6,18 @@ const bcrypt = require("bcryptjs");
 class Customer {
     static async homePage(req, res) {
         try {
-            let products = await Product.findAll({ include: Category });
-            let categories = await Category.findAll(); // Fetch categories
-    
-            res.render("custHome", { products, categories, title: "Home - Sopi" });
+            let { search } = req.query;
+    let whereClause = {};
+    let orderClause = [];
+
+    if (search) {
+      whereClause.name = { [Op.iLike]: `%${search}%` }; 
+    }
+
+    let categories = await Category.findAll({ limit: 5 });
+    let products = await Product.findAll({ where: whereClause, order: orderClause, include: Category }); 
+
+    res.render('custHome', { categories, products, search }); 
         } catch (error) {
             res.send(error);
         }
