@@ -206,6 +206,12 @@
             <img src="https://via.placeholder.com/1200x300" alt="Banner">
         </div> -->
 
+        <% if (search) { %>
+            <h2>Search Results for: "<%= search %>"</h2>
+          <% } else { %>
+            <h2>Products</h2>
+          <% } %>
+
         <div class="categories">
             <h2>Categories</h2>
             <div class="category-list">

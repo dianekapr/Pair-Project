@@ -10,7 +10,7 @@ router.use('/sellers', seller);
 router.get('/register', Seller.getRegister);
 router.post('/register', Seller.postRegister);
 router.get('/login', Seller.getLogin);
-router.post('/login', Seller.postLogin);
+router.post('/login', Seller.PostLogin);
 router.get('/role-selection', (req, res) => {
     res.render('role-selection');
 });

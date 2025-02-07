@@ -127,6 +127,32 @@
           ></textarea>
         </div>
 
+        <div class="mb-3" style="margin-bottom: 15px">
+          <label
+            for="CategoryId"
+            class="form-label"
+            style="font-weight: bold; font-size: 1rem"
+            >Category</label
+          >
+          <select
+            class="form-select"
+            id="CategoryId"
+            name="CategoryId"
+            style="
+              width: 100%;
+              padding: 10px;
+              border-radius: 5px;
+              border: px solid #ccc;
+              font-size: 1rem;
+            "
+          >
+          <option value="0" selected>Choose...</option>
+            <% data.forEach(el => { %>
+            <option value="<%= el.id %>"><%= el.name %></option>
+            <% }) %>
+          </select>
+        </div>
+        
         <button
           type="submit"
           class="btn btn-secondary"
