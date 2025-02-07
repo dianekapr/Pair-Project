@@ -1,26 +1,18 @@
 const { Product, Category, User, Profile } = require("../models/index")
 const bcrypt = require('bcryptjs');
-const {timeFormat} = require('../helpers/timeFormat')
+const { timeFormat } = require('../helpers/timeFormat')
 
 class Seller {
-    static async showListProduct(req, res) {
+    static async showListProduct (req, res){
         try {
-            const sellerId = req.session.user.id;
-            const sellerNotification = await User.getSellerProductStats(sellerId);
-            const products = await Product.findAll({
-                where: { UserId: sellerId },
-                include: Category
-            });
+            
+            let data = await Product.findAll({include: Category})
+            
+            res.render ('sellerHome', {data, title: 'sellerHome'})
 
-            res.render("sellerHome", {
-                products,
-                sellerNotification,
-                title: "Seller Dashboard",
-                timeFormat
-            });
         } catch (error) {
             console.log(error);
-            res.send(error);
+            res.send (error)
         }
     }
 

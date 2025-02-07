@@ -9,22 +9,6 @@ module.exports = (sequelize, DataTypes) => {
             User.hasOne(models.Profile, { foreignKey: 'UserId' });
             User.hasMany(models.Order, { foreignKey: 'UserId' });
         }
-
-        static async getSellerProductStats(sellerId) {
-            try {
-                const sellerProducts = await sequelize.models.Product.findAll({
-                    where: { UserId: sellerId },
-                    include: { model: sequelize.models.Category }
-                });
-
-                const totalProducts = sellerProducts.length;
-                const totalCategories = new Set(sellerProducts.map(p => p.Category.id)).size;
-
-                return `Anda memiliki ${totalProducts} produk dan ${totalCategories} kategori.`;
-            } catch (error) {
-                return "Terjadi kesalahan dalam mengambil data produk."
-            }
-        }
     }
 
     User.init(

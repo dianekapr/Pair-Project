@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seller Dashboard</title>
-    <link rel="stylesheet" href="/styles.css">
+    <title>Sproductler Dashboard</title>
+    <link rproduct="stylesheet" href="/styles.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -142,7 +142,7 @@
             border-radius: 5px;
         }
 
-        .edit-btn, .delete-btn {
+        .edit-btn, .dproductete-btn {
             padding: 8px 12px;
             border-radius: 5px;
             text-decoration: none;
@@ -160,12 +160,12 @@
             background-color: #218838;
         }
 
-        .delete-btn {
+        .dproductete-btn {
             background-color: #dc3545;
             color: white;
         }
 
-        .delete-btn:hover {
+        .dproductete-btn:hover {
             background-color: #c82333;
         }
 
@@ -186,11 +186,11 @@
             .table td {
                 text-align: right;
                 padding-left: 50%;
-                position: relative;
+                position: rproductative;
             }
 
             .table td:before {
-                content: attr(data-label);
+                content: attr(data-labproduct);
                 position: absolute;
                 left: 10px;
                 font-weight: bold;
@@ -204,7 +204,7 @@
             margin: 10px 0;
             border: 1px solid #f5c6cb;
             border-radius: 5px;
-            position: relative;
+            position: rproductative;
         }
 
         .alert button {
@@ -221,43 +221,58 @@
 </head>
 <body>
     <%- include('navbar') %>
-
-    <div class="container">
-        <h2>Seller Dashboard</h2>
-        <button class="add-product-btn" onclick="window.location.href='/sellers/addProduct'">+ Add New Product</button>
-        <% if (sellerNotification) { %>
-            <div id="seller-alert" class="alert">
-                <span><%= sellerNotification %></span>
-                <button onclick="document.getElementById('seller-alert').style.display='none'">✖</button>
-            </div>
-        <% } %>
-        <table class="table">
-            <thead>
+    
+    <div class="container" style="padding-top: 10px;" >
+        <table class="table table-striped table-hover" >
+            <thead class="table-light" >
                 <tr>
-                    <th>No</th>
-                    <th>Image</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Action</th>
+                    <th scope="col">No</th>
+                    <th scope="col">ImageUrl</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <% data.forEach((product, index) => { %>
+            <tbody class="table-group-divider">
+                <%data.forEach((product)=> { %>
                     <tr>
-                        <td data-label="No"><%= index + 1 %></td>
-                        <td data-label="Image"><img src="<%= product.imageUrl %>" class="product-img"></td>
-                        <td data-label="Name"><%= product.name %></td>
-                        <td data-label="Category"><%= product.Category.name %></td>
-                        <td data-label="Price">Rp <%= product.price.toLocaleString() %></td>
-                        <td data-label="Action">
-                            <a href="/sellers/products/<%= product.id %>/edit" class="edit-btn">Edit</a>
-                            <a href="/sellers/delete/<%= product.id %>" class="delete-btn">Delete</a>
+                        <td>
+                            <%= product.id %>
+                        </td>
+                        </td>
+                        <td scope="row">
+                            <img src="<%= product.imageUrl %>" alt="Image" width="100">
+                        </td>
+                        <td>
+                            <%= product.name %>
+                        </td>
+                        <td>
+                            <%= product.Category.name %>
+                        </td>
+                        <td>
+                            <%= product.description %>
+                        </td>
+                        <td>
+                            <%= product.price %>
+                        </td>
+                        <td>
+                                <div style="display: flex;gap: 10px;">
+                                    <a type="button" class="btn btn-secondary"
+                                        href="/sellers/delete/<%= product.id %>">Delete</a>
+                                    <a type="button" class="btn btn-secondary"
+                                    href="/sellers/products/<%= product.id %>/edit">Edit</a>
+                                    <a type="button" class="btn btn-secondary"
+                                    href="/sellers/products/<%= product.id %>">Detail</a>
+                            </div>
+                        </td>
                         </td>
                     </tr>
                 <% }) %>
             </tbody>
         </table>
-    </div>
+     </div>
+     <%- include('_script') %>
 </body>
 </html>
